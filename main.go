@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -18,7 +17,8 @@ func ProvideStatusCode(w http.ResponseWriter, r *http.Request) {
 	strCode := strings.TrimPrefix(r.URL.Path, "/api/")
 	code, err := strconv.Atoi(strCode)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(404)
+		fmt.Fprint(w, "<h1>404 Not Found</h1>")
 	}
 	if message, ok := statusCodeMap[code]; ok {
 		w.WriteHeader(code)
