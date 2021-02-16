@@ -17,16 +17,20 @@ func ProvideStatusCode(w http.ResponseWriter, r *http.Request) {
 	strCode := strings.TrimPrefix(r.URL.Path, "/api/")
 	code, err := strconv.Atoi(strCode)
 	if err != nil {
-		w.WriteHeader(404)
-		fmt.Fprint(w, "<h1>404 Not Found</h1>")
+		writeResponse(w, 404)
+		return
 	}
-	if message, ok := statusCodeMap[code]; ok {
-		w.WriteHeader(code)
-		fmt.Fprint(w, "<h1>", strCode, " ", message, "</h1>")
+	if _, ok := statusCodeMap[code]; ok {
+		writeResponse(w, code)
 	} else {
-		w.WriteHeader(404)
-		fmt.Fprint(w, "<h1>404 Not Found</h1>")
+		writeResponse(w, 404)
 	}
+}
+
+func writeResponse(w http.ResponseWriter, code int) {
+	w.WriteHeader(code)
+	codeStr := strconv.Itoa(code)
+	fmt.Fprint(w, "<h1>", codeStr, " ", statusCodeMap[code], "</h1>")
 }
 
 var statusCodeMap = map[int]string{
