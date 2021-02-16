@@ -10,7 +10,7 @@ import (
 func main() {
 	http.Handle("/", http.FileServer(http.Dir("./static")))
 	http.HandleFunc("/api/", ProvideStatusCode)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8888", nil)
 }
 
 func ProvideStatusCode(w http.ResponseWriter, r *http.Request) {
