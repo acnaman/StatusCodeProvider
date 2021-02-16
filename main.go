@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-	http.Handle("/", http.FileServer(http.Dir("./static")))
 	http.HandleFunc("/api/", ProvideStatusCode)
 	http.ListenAndServe(":8888", nil)
 }
