@@ -2,7 +2,7 @@
 
 You can set up a local server that returns arbitrary status codes.
 
-1. Create a container with docker.
+### 1. Create a container with docker
 
 #### docker build
 ```
@@ -14,7 +14,8 @@ docker image build -t status-code-provider .
 docker container run -p 8888:8888 -td status-code-provider
 ```
 
-2. Access API
+### 2. Access API
+
 Access `http://localhost:8888/api/{status code}`.
 It will return the specified status code.
 
